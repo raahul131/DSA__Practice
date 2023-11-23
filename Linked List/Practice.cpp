@@ -54,6 +54,47 @@ void insertAtkPosition(Node* &head, int val, int position){
     temp -> next = new_node;
 }
 
+// Deleting the node at Head
+void deleteNodeAtHead(Node* &head){
+    Node* temp = head;
+    head = head -> next;
+    free(temp);
+}
+
+// deleting node from the tail
+void deleteAtTail(Node* &head){
+
+    Node* second_last = head;
+    while(second_last -> next -> next != NULL){
+        second_last = second_last -> next;
+    }
+
+    Node* temp = second_last -> next;
+    second_last -> next = NULL;
+    free(temp);
+}
+
+
+// delete at position
+void deleteAtPosition(Node* & head, int position){
+
+    if(position == 0){
+        deleteNodeAtHead(head);
+    }
+
+    Node* prev = head;
+    int current_Position = 0;
+    while(current_Position != position-1){
+        prev = prev -> next;
+        current_Position++;
+    }
+
+    Node* temp = prev -> next; // node to be deleted
+    prev -> next = prev -> next -> next;
+
+    free(temp);
+}
+
 void display(Node* head){
 
     Node* temp = head;
@@ -85,6 +126,15 @@ int main(){
 
 
     insertAtkPosition(head, 4, 2);
+    display(head);
+
+    deleteNodeAtHead(head);
+    display(head);
+
+    // deleteAtTail(head);
+    // display(head);
+
+    deleteAtPosition(head, 1);
     display(head);
 
     return 0;
